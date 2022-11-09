@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.czqu.openimserver.dao.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="net.czqu.openimserver.dao.pojo.User">
+    <id column="server_msg_id" jdbcType="CHAR" property="serverMsgId" />
+    <result column="client_msg_id" jdbcType="CHAR" property="clientMsgId" />
+    <result column="send_id" jdbcType="CHAR" property="sendId" />
+    <result column="recv_id" jdbcType="CHAR" property="recvId" />
+    <result column="sender_platform_id" jdbcType="INTEGER" property="senderPlatformId" />
+    <result column="sender_nick_name" jdbcType="VARCHAR" property="senderNickName" />
+    <result column="sender_face_url" jdbcType="VARCHAR" property="senderFaceUrl" />
+    <result column="session_type" jdbcType="INTEGER" property="sessionType" />
+    <result column="msg_from" jdbcType="INTEGER" property="msgFrom" />
+    <result column="content_type" jdbcType="INTEGER" property="contentType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ex" jdbcType="VARCHAR" property="ex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    server_msg_id, client_msg_id, send_id, recv_id, sender_platform_id, sender_nick_name, 
+    sender_face_url, session_type, msg_from, content_type, content, status, send_time, 
+    create_time, ex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_logs
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from chat_logs
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="net.czqu.openimserver.dao.pojo.User">
+    insert into chat_logs (server_msg_id, client_msg_id, send_id, 
+      recv_id, sender_platform_id, sender_nick_name, 
+      sender_face_url, session_type, msg_from, 
+      content_type, content, status, 
+      send_time, create_time, ex
+      )
+    values (#{serverMsgId,jdbcType=CHAR}, #{clientMsgId,jdbcType=CHAR}, #{sendId,jdbcType=CHAR}, 
+      #{recvId,jdbcType=CHAR}, #{senderPlatformId,jdbcType=INTEGER}, #{senderNickName,jdbcType=VARCHAR}, 
+      #{senderFaceUrl,jdbcType=VARCHAR}, #{sessionType,jdbcType=INTEGER}, #{msgFrom,jdbcType=INTEGER}, 
+      #{contentType,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{sendTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{ex,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    insert into chat_logs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serverMsgId != null">
+        server_msg_id,
+      </if>
+      <if test="clientMsgId != null">
+        client_msg_id,
+      </if>
+      <if test="sendId != null">
+        send_id,
+      </if>
+      <if test="recvId != null">
+        recv_id,
+      </if>
+      <if test="senderPlatformId != null">
+        sender_platform_id,
+      </if>
+      <if test="senderNickName != null">
+        sender_nick_name,
+      </if>
+      <if test="senderFaceUrl != null">
+        sender_face_url,
+      </if>
+      <if test="sessionType != null">
+        session_type,
+      </if>
+      <if test="msgFrom != null">
+        msg_from,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sendTime != null">
+        send_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ex != null">
+        ex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serverMsgId != null">
+        #{serverMsgId,jdbcType=CHAR},
+      </if>
+      <if test="clientMsgId != null">
+        #{clientMsgId,jdbcType=CHAR},
+      </if>
+      <if test="sendId != null">
+        #{sendId,jdbcType=CHAR},
+      </if>
+      <if test="recvId != null">
+        #{recvId,jdbcType=CHAR},
+      </if>
+      <if test="senderPlatformId != null">
+        #{senderPlatformId,jdbcType=INTEGER},
+      </if>
+      <if test="senderNickName != null">
+        #{senderNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderFaceUrl != null">
+        #{senderFaceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionType != null">
+        #{sessionType,jdbcType=INTEGER},
+      </if>
+      <if test="msgFrom != null">
+        #{msgFrom,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ex != null">
+        #{ex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update chat_logs
+    <set>
+      <if test="clientMsgId != null">
+        client_msg_id = #{clientMsgId,jdbcType=CHAR},
+      </if>
+      <if test="sendId != null">
+        send_id = #{sendId,jdbcType=CHAR},
+      </if>
+      <if test="recvId != null">
+        recv_id = #{recvId,jdbcType=CHAR},
+      </if>
+      <if test="senderPlatformId != null">
+        sender_platform_id = #{senderPlatformId,jdbcType=INTEGER},
+      </if>
+      <if test="senderNickName != null">
+        sender_nick_name = #{senderNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderFaceUrl != null">
+        sender_face_url = #{senderFaceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionType != null">
+        session_type = #{sessionType,jdbcType=INTEGER},
+      </if>
+      <if test="msgFrom != null">
+        msg_from = #{msgFrom,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ex != null">
+        ex = #{ex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update chat_logs
+    set client_msg_id = #{clientMsgId,jdbcType=CHAR},
+      send_id = #{sendId,jdbcType=CHAR},
+      recv_id = #{recvId,jdbcType=CHAR},
+      sender_platform_id = #{senderPlatformId,jdbcType=INTEGER},
+      sender_nick_name = #{senderNickName,jdbcType=VARCHAR},
+      sender_face_url = #{senderFaceUrl,jdbcType=VARCHAR},
+      session_type = #{sessionType,jdbcType=INTEGER},
+      msg_from = #{msgFrom,jdbcType=INTEGER},
+      content_type = #{contentType,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ex = #{ex,jdbcType=VARCHAR}
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="net.czqu.openimserver.dao.pojo.User">
+    <id column="type" jdbcType="BIGINT" property="type" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="force_update" jdbcType="BIT" property="forceUpdate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    <result column="file_name" jdbcType="LONGVARCHAR" property="fileName" />
+    <result column="yaml_name" jdbcType="LONGVARCHAR" property="yamlName" />
+    <result column="update_log" jdbcType="LONGVARCHAR" property="updateLog" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    type, version, update_time, force_update
+  </sql>
+  <sql id="Blob_Column_List">
+    file_name, yaml_name, update_log
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_version
+    where type = #{type,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from app_version
+    where type = #{type,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    insert into app_version (type, version, update_time, 
+      force_update, file_name, yaml_name, 
+      update_log)
+    values (#{type,jdbcType=BIGINT}, #{version,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, 
+      #{forceUpdate,jdbcType=BIT}, #{fileName,jdbcType=LONGVARCHAR}, #{yamlName,jdbcType=LONGVARCHAR}, 
+      #{updateLog,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    insert into app_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        type,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="forceUpdate != null">
+        force_update,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="yamlName != null">
+        yaml_name,
+      </if>
+      <if test="updateLog != null">
+        update_log,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="forceUpdate != null">
+        #{forceUpdate,jdbcType=BIT},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="yamlName != null">
+        #{yamlName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="updateLog != null">
+        #{updateLog,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    update app_version
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="forceUpdate != null">
+        force_update = #{forceUpdate,jdbcType=BIT},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="yamlName != null">
+        yaml_name = #{yamlName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="updateLog != null">
+        update_log = #{updateLog,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where type = #{type,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    update app_version
+    set version = #{version,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      force_update = #{forceUpdate,jdbcType=BIT},
+      file_name = #{fileName,jdbcType=LONGVARCHAR},
+      yaml_name = #{yamlName,jdbcType=LONGVARCHAR},
+      update_log = #{updateLog,jdbcType=LONGVARCHAR}
+    where type = #{type,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update app_version
+    set version = #{version,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      force_update = #{forceUpdate,jdbcType=BIT}
+    where type = #{type,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="net.czqu.openimserver.dao.pojo.User">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="face_url" jdbcType="VARCHAR" property="faceUrl" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="birth" jdbcType="TIMESTAMP" property="birth" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="ex" jdbcType="VARCHAR" property="ex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="app_manger_level" jdbcType="INTEGER" property="appMangerLevel" />
+    <result column="global_recv_msg_opt" jdbcType="INTEGER" property="globalRecvMsgOpt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, name, face_url, gender, phone_number, birth, email, ex, create_time, app_manger_level, 
+    global_recv_msg_opt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from users
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.czqu.openimserver.dao.pojo.User">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into users (name, face_url, gender, 
+      phone_number, birth, email, 
+      ex, create_time, app_manger_level, 
+      global_recv_msg_opt)
+    values (#{name,jdbcType=VARCHAR}, #{faceUrl,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
+      #{ex,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{appMangerLevel,jdbcType=INTEGER}, 
+      #{globalRecvMsgOpt,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="faceUrl != null">
+        face_url,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="ex != null">
+        ex,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="appMangerLevel != null">
+        app_manger_level,
+      </if>
+      <if test="globalRecvMsgOpt != null">
+        global_recv_msg_opt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null">
+        #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="ex != null">
+        #{ex,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appMangerLevel != null">
+        #{appMangerLevel,jdbcType=INTEGER},
+      </if>
+      <if test="globalRecvMsgOpt != null">
+        #{globalRecvMsgOpt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update users
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null">
+        face_url = #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="ex != null">
+        ex = #{ex,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appMangerLevel != null">
+        app_manger_level = #{appMangerLevel,jdbcType=INTEGER},
+      </if>
+      <if test="globalRecvMsgOpt != null">
+        global_recv_msg_opt = #{globalRecvMsgOpt,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update users
+    set name = #{name,jdbcType=VARCHAR},
+      face_url = #{faceUrl,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      ex = #{ex,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      app_manger_level = #{appMangerLevel,jdbcType=INTEGER},
+      global_recv_msg_opt = #{globalRecvMsgOpt,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="net.czqu.openimserver.dao.pojo.User">
+    <id column="server_msg_id" jdbcType="CHAR" property="serverMsgId" />
+    <result column="client_msg_id" jdbcType="CHAR" property="clientMsgId" />
+    <result column="send_id" jdbcType="CHAR" property="sendId" />
+    <result column="recv_id" jdbcType="CHAR" property="recvId" />
+    <result column="sender_platform_id" jdbcType="INTEGER" property="senderPlatformId" />
+    <result column="sender_nick_name" jdbcType="VARCHAR" property="senderNickName" />
+    <result column="sender_face_url" jdbcType="VARCHAR" property="senderFaceUrl" />
+    <result column="session_type" jdbcType="INTEGER" property="sessionType" />
+    <result column="msg_from" jdbcType="INTEGER" property="msgFrom" />
+    <result column="content_type" jdbcType="INTEGER" property="contentType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ex" jdbcType="VARCHAR" property="ex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    server_msg_id, client_msg_id, send_id, recv_id, sender_platform_id, sender_nick_name, 
+    sender_face_url, session_type, msg_from, content_type, content, status, send_time, 
+    create_time, ex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_logs
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from chat_logs
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="net.czqu.openimserver.dao.pojo.User">
+    insert into chat_logs (server_msg_id, client_msg_id, send_id, 
+      recv_id, sender_platform_id, sender_nick_name, 
+      sender_face_url, session_type, msg_from, 
+      content_type, content, status, 
+      send_time, create_time, ex
+      )
+    values (#{serverMsgId,jdbcType=CHAR}, #{clientMsgId,jdbcType=CHAR}, #{sendId,jdbcType=CHAR}, 
+      #{recvId,jdbcType=CHAR}, #{senderPlatformId,jdbcType=INTEGER}, #{senderNickName,jdbcType=VARCHAR}, 
+      #{senderFaceUrl,jdbcType=VARCHAR}, #{sessionType,jdbcType=INTEGER}, #{msgFrom,jdbcType=INTEGER}, 
+      #{contentType,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{sendTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{ex,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    insert into chat_logs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serverMsgId != null">
+        server_msg_id,
+      </if>
+      <if test="clientMsgId != null">
+        client_msg_id,
+      </if>
+      <if test="sendId != null">
+        send_id,
+      </if>
+      <if test="recvId != null">
+        recv_id,
+      </if>
+      <if test="senderPlatformId != null">
+        sender_platform_id,
+      </if>
+      <if test="senderNickName != null">
+        sender_nick_name,
+      </if>
+      <if test="senderFaceUrl != null">
+        sender_face_url,
+      </if>
+      <if test="sessionType != null">
+        session_type,
+      </if>
+      <if test="msgFrom != null">
+        msg_from,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sendTime != null">
+        send_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ex != null">
+        ex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serverMsgId != null">
+        #{serverMsgId,jdbcType=CHAR},
+      </if>
+      <if test="clientMsgId != null">
+        #{clientMsgId,jdbcType=CHAR},
+      </if>
+      <if test="sendId != null">
+        #{sendId,jdbcType=CHAR},
+      </if>
+      <if test="recvId != null">
+        #{recvId,jdbcType=CHAR},
+      </if>
+      <if test="senderPlatformId != null">
+        #{senderPlatformId,jdbcType=INTEGER},
+      </if>
+      <if test="senderNickName != null">
+        #{senderNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderFaceUrl != null">
+        #{senderFaceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionType != null">
+        #{sessionType,jdbcType=INTEGER},
+      </if>
+      <if test="msgFrom != null">
+        #{msgFrom,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ex != null">
+        #{ex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update chat_logs
+    <set>
+      <if test="clientMsgId != null">
+        client_msg_id = #{clientMsgId,jdbcType=CHAR},
+      </if>
+      <if test="sendId != null">
+        send_id = #{sendId,jdbcType=CHAR},
+      </if>
+      <if test="recvId != null">
+        recv_id = #{recvId,jdbcType=CHAR},
+      </if>
+      <if test="senderPlatformId != null">
+        sender_platform_id = #{senderPlatformId,jdbcType=INTEGER},
+      </if>
+      <if test="senderNickName != null">
+        sender_nick_name = #{senderNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderFaceUrl != null">
+        sender_face_url = #{senderFaceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionType != null">
+        session_type = #{sessionType,jdbcType=INTEGER},
+      </if>
+      <if test="msgFrom != null">
+        msg_from = #{msgFrom,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ex != null">
+        ex = #{ex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update chat_logs
+    set client_msg_id = #{clientMsgId,jdbcType=CHAR},
+      send_id = #{sendId,jdbcType=CHAR},
+      recv_id = #{recvId,jdbcType=CHAR},
+      sender_platform_id = #{senderPlatformId,jdbcType=INTEGER},
+      sender_nick_name = #{senderNickName,jdbcType=VARCHAR},
+      sender_face_url = #{senderFaceUrl,jdbcType=VARCHAR},
+      session_type = #{sessionType,jdbcType=INTEGER},
+      msg_from = #{msgFrom,jdbcType=INTEGER},
+      content_type = #{contentType,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ex = #{ex,jdbcType=VARCHAR}
+    where server_msg_id = #{serverMsgId,jdbcType=CHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="net.czqu.openimserver.dao.pojo.User">
+    <id column="type" jdbcType="BIGINT" property="type" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="force_update" jdbcType="BIT" property="forceUpdate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    <result column="file_name" jdbcType="LONGVARCHAR" property="fileName" />
+    <result column="yaml_name" jdbcType="LONGVARCHAR" property="yamlName" />
+    <result column="update_log" jdbcType="LONGVARCHAR" property="updateLog" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    type, version, update_time, force_update
+  </sql>
+  <sql id="Blob_Column_List">
+    file_name, yaml_name, update_log
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_version
+    where type = #{type,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from app_version
+    where type = #{type,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    insert into app_version (type, version, update_time, 
+      force_update, file_name, yaml_name, 
+      update_log)
+    values (#{type,jdbcType=BIGINT}, #{version,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, 
+      #{forceUpdate,jdbcType=BIT}, #{fileName,jdbcType=LONGVARCHAR}, #{yamlName,jdbcType=LONGVARCHAR}, 
+      #{updateLog,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    insert into app_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        type,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="forceUpdate != null">
+        force_update,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="yamlName != null">
+        yaml_name,
+      </if>
+      <if test="updateLog != null">
+        update_log,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="forceUpdate != null">
+        #{forceUpdate,jdbcType=BIT},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="yamlName != null">
+        #{yamlName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="updateLog != null">
+        #{updateLog,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    update app_version
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="forceUpdate != null">
+        force_update = #{forceUpdate,jdbcType=BIT},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="yamlName != null">
+        yaml_name = #{yamlName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="updateLog != null">
+        update_log = #{updateLog,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where type = #{type,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.czqu.openimserver.dao.pojo.UserWithBLOBs">
+    update app_version
+    set version = #{version,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      force_update = #{forceUpdate,jdbcType=BIT},
+      file_name = #{fileName,jdbcType=LONGVARCHAR},
+      yaml_name = #{yamlName,jdbcType=LONGVARCHAR},
+      update_log = #{updateLog,jdbcType=LONGVARCHAR}
+    where type = #{type,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update app_version
+    set version = #{version,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      force_update = #{forceUpdate,jdbcType=BIT}
+    where type = #{type,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="net.czqu.openimserver.dao.pojo.User">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="face_url" jdbcType="VARCHAR" property="faceUrl" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="birth" jdbcType="TIMESTAMP" property="birth" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="ex" jdbcType="VARCHAR" property="ex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="app_manger_level" jdbcType="INTEGER" property="appMangerLevel" />
+    <result column="global_recv_msg_opt" jdbcType="INTEGER" property="globalRecvMsgOpt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, name, face_url, gender, phone_number, birth, email, ex, create_time, app_manger_level, 
+    global_recv_msg_opt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from users
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.czqu.openimserver.dao.pojo.User">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into users (name, face_url, gender, 
+      phone_number, birth, email, 
+      ex, create_time, app_manger_level, 
+      global_recv_msg_opt)
+    values (#{name,jdbcType=VARCHAR}, #{faceUrl,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
+      #{ex,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{appMangerLevel,jdbcType=INTEGER}, 
+      #{globalRecvMsgOpt,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="faceUrl != null">
+        face_url,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="ex != null">
+        ex,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="appMangerLevel != null">
+        app_manger_level,
+      </if>
+      <if test="globalRecvMsgOpt != null">
+        global_recv_msg_opt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null">
+        #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="ex != null">
+        #{ex,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appMangerLevel != null">
+        #{appMangerLevel,jdbcType=INTEGER},
+      </if>
+      <if test="globalRecvMsgOpt != null">
+        #{globalRecvMsgOpt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update users
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null">
+        face_url = #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="ex != null">
+        ex = #{ex,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appMangerLevel != null">
+        app_manger_level = #{appMangerLevel,jdbcType=INTEGER},
+      </if>
+      <if test="globalRecvMsgOpt != null">
+        global_recv_msg_opt = #{globalRecvMsgOpt,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.czqu.openimserver.dao.pojo.User">
+    update users
+    set name = #{name,jdbcType=VARCHAR},
+      face_url = #{faceUrl,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      ex = #{ex,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      app_manger_level = #{appMangerLevel,jdbcType=INTEGER},
+      global_recv_msg_opt = #{globalRecvMsgOpt,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>
