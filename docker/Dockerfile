@@ -4,5 +4,5 @@ WORKDIR VOLUME /tmp
 CMD ["java", "-version"]
 ARG JAR_FILE
 ADD ${JAR_FILE} /app.jar
-EXPOSE 8881
+EXPOSE 10001
 ENTRYPOINT ["java", "-jar", "/app.jar"]
