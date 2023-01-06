@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/*
+    不要删除 测试连通性专用
+ */
 @RestController
 class TestController {
 
