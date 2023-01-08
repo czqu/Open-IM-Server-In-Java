@@ -13,6 +13,11 @@ import java.net.UnknownHostException;
 @RestController
 class TestController {
 
+    @GetMapping("/test")
+    public String test1()
+    {
+        return String.valueOf(0/0);
+    }
     @GetMapping("/hello")
     public String test(HttpServletRequest request) {
         String ipaddr = getIp(request);
