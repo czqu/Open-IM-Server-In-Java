@@ -2,7 +2,8 @@ package net.czqu.openimserver.controller;
 
 import net.czqu.openimserver.dto.UserInfoDTO;
 import net.czqu.openimserver.service.UserService;
-import net.czqu.openimserver.util.response.Result;
+
+import net.czqu.openimserver.util.response.ResponseResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public UserInfoDTO getUserInfo(@RequestParam(value = "id") String userId) {
-        return userService.getUserInfo(userId);
+    public ResponseResult<UserInfoDTO> getUserInfo(@RequestParam(value = "id") String userId) {
+        return ResponseResult.success(userService.getUserInfo(userId));
     }
 }
