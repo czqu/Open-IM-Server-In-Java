@@ -29,4 +29,9 @@ public class UsersController {
     public ResponseResult<UserInfoDTO> getUserInfo(@RequestParam(value = "id") String userId) throws UserException {
         return ResponseResult.success(userService.getUserInfo(userId));
     }
+
+    public UserInfoDTO getSelfUserInfo(@RequestParam(value = "selfid") String userId) {
+        return userService.getUserInfo(userId);
+    }
+
 }
