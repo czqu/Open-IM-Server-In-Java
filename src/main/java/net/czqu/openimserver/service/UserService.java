@@ -23,10 +23,17 @@ import java.util.List;
 public class UserService {
 
     private final UsersMapper usersMapper;
-
     @Autowired
     public UserService(UsersMapper usersMapper) {
         this.usersMapper = usersMapper;
+    }
+
+    public String getAccountStatus(String userID) {
+        if (StringUtils.isEmpty(userId)) {
+            //// TODO: 2023/1/8
+            return new UserInfoDTO();
+        }
+
     }
 
     public UserInfoDTO getUserInfo(String userId) throws UserException {
@@ -45,6 +52,25 @@ public class UserService {
 
     }
 
+    public UserInfoDTO getSelfUserInfo(String userId)
+    {
+        if (StringUtils.isEmpty(userId)) {
+            //// TODO: 2023/1/8
+            return new UserInfoDTO();
+        }
+        Users user = usersMapper.selectByPrimaryKeySelective(userId,
+                Users.Column.userId, Users.Column.birth, Users.Column.email, Users.Column.phoneNumber, Users.Column.name
+        );
+        return convertToUserInfoDTO(user);
+    }
+
+    public Void setUserInfo(String)
+    {
+
+    }
+
+
+
     private UserInfoDTO convertToUserInfoDTO(Users user) {
         if (user == null) {
             return null;
@@ -56,4 +82,6 @@ public class UserService {
                 .setPhone(user.getPhoneNumber())
                 .setName(user.getName());
     }
+
+
 }
