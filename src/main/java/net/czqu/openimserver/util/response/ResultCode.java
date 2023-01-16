@@ -7,25 +7,26 @@ package net.czqu.openimserver.util.response;
  * @create: 2022-12-24 15:27
  **/
 public enum ResultCode {
-    SUCCESS("200", ""),
+    SUCCESS("", ""),
     FAILED("500", "操作失败"),
     VALIDATE_FAILED("404", "参数检验失败"),
     UNAUTHORIZED("401", "暂未登录或token已经过期"),
     FORBIDDEN("403", "没有相关权限");
-    private String code;
+    private String errCode;
     private String message;
+    private String code;
 
     private ResultCode(String code, String message) {
-        this.code = code;
+        this.errCode = code;
         this.message = message;
     }
 
-    public String getCode() {
-        return code;
+    public String getErrCode() {
+        return errCode;
     }
 
-    public ResultCode setCode(String code) {
-        this.code = code;
+    public ResultCode setErrCode(String errCode) {
+        this.errCode = errCode;
         return this;
     }
 
@@ -37,4 +38,5 @@ public enum ResultCode {
         this.message = message;
         return this;
     }
+
 }
