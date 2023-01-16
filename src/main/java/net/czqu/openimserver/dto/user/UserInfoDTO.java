@@ -1,4 +1,4 @@
-package net.czqu.openimserver.dto;
+package net.czqu.openimserver.dto.user;
 
 
 import java.util.Date;

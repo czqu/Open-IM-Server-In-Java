@@ -1,17 +1,21 @@
 package net.czqu.openimserver.service;
 
+import net.czqu.openimserver.constant.UserStatus;
 import net.czqu.openimserver.dao.example.UsersExample;
 import net.czqu.openimserver.dao.mapper.UsersMapper;
 import net.czqu.openimserver.dao.pojo.Users;
-import net.czqu.openimserver.dto.UserInfoDTO;
+import net.czqu.openimserver.dto.user.AccountCheckListDTO;
+import net.czqu.openimserver.dto.user.AccountStatusDTO;
+import net.czqu.openimserver.dto.user.UserInfoDTO;
 import net.czqu.openimserver.error.constant.ErrorCode;
 import net.czqu.openimserver.error.exception.UserException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @program: Open-IM-Server-In-Java
@@ -28,12 +32,32 @@ public class UserService {
         this.usersMapper = usersMapper;
     }
 
-    public String getAccountStatus(String userID) {
-        if (StringUtils.isEmpty(userId)) {
-            //// TODO: 2023/1/8
-            return new UserInfoDTO();
+    public List<AccountStatusDTO> checkAccountStatus(AccountCheckListDTO accountCheckListDTO) {
+        if (Objects.isNull(accountCheckListDTO)) {
+            //// TODO: 2023/1/16
+            return null;
         }
 
+        if (CollectionUtils.isEmpty(accountCheckListDTO.getCheckUserIDList())) {
+            return new ArrayList<>();
+        }
+        List<String> userIdList=accountCheckListDTO.getCheckUserIDList();
+        List<Users> usersList=usersMapper.selectByExampleSelective(UsersExample
+                .newAndCreateCriteria()
+                .andUserIdIn(userIdList)
+                .example(), Users.Column.userId);
+        Set<String> usersSet = usersList.stream().map(Users::getUserId).collect(Collectors.toSet());
+
+        List<AccountStatusDTO> res = new ArrayList<>();
+        for (String userId: userIdList)
+        {
+            if (usersSet.contains(userId)) {
+                res.add(new AccountStatusDTO(userId,UserStatus.REGISTERED.getValue()));
+            } else {
+                res.add(new AccountStatusDTO(userId, UserStatus.UNREGISTERED.getValue()));
+            }
+        }
+        return res;
     }
 
     public UserInfoDTO getUserInfo(String userId) throws UserException {
