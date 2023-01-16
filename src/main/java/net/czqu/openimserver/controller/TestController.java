@@ -1,5 +1,6 @@
 package net.czqu.openimserver.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,6 +11,7 @@ import java.net.UnknownHostException;
 /*
     不要删除 测试连通性专用
  */
+@Api(tags = "测试接口")
 @RestController
 class TestController {
 

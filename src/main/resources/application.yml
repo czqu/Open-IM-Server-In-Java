@@ -2,6 +2,8 @@ logging:
   config: classpath:log4j2.xml
   level:
     net.czqu.openserver: trace
+swagger:
+  enabled: true
 server:
   port: 8080
 mybatis:
