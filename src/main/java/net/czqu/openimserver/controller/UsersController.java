@@ -1,6 +1,7 @@
 package net.czqu.openimserver.controller;
 
 import net.czqu.openimserver.dto.UserInfoDTO;
+import net.czqu.openimserver.error.exception.UserException;
 import net.czqu.openimserver.service.UserService;
 
 import net.czqu.openimserver.util.response.ResponseResult;
@@ -25,7 +26,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseResult<UserInfoDTO> getUserInfo(@RequestParam(value = "id") String userId) {
+    public ResponseResult<UserInfoDTO> getUserInfo(@RequestParam(value = "id") String userId) throws UserException {
         return ResponseResult.success(userService.getUserInfo(userId));
     }
 }

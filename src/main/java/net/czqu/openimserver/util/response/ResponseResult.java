@@ -1,7 +1,5 @@
 package net.czqu.openimserver.util.response;
 
-import net.czqu.openimserver.util.response.ResultCode;
-
 import java.io.Serializable;
 
 
@@ -11,6 +9,7 @@ import java.io.Serializable;
 public class ResponseResult<T> implements Serializable {
     private String errCode = "";
     private String errMsg = "";
+    private String code = "";
     private T data;
 
 
@@ -25,7 +24,7 @@ public class ResponseResult<T> implements Serializable {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static ResponseResult success(Object data) {
         ResponseResult responseResult = new ResponseResult<>();
-        responseResult.setErrCode(ResultCode.SUCCESS.getCode());
+        responseResult.setErrCode(ResultCode.SUCCESS.getErrCode());
         responseResult.setErrMsg(ResultCode.SUCCESS.getMessage());
         responseResult.setData(data);
 
@@ -40,7 +39,7 @@ public class ResponseResult<T> implements Serializable {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static ResponseResult error(Object data) {
         ResponseResult responseResult = new ResponseResult<>();
-        responseResult.setErrCode(ResultCode.SUCCESS.getCode());
+        responseResult.setErrCode(ResultCode.SUCCESS.getErrCode());
         responseResult.setErrMsg(ResultCode.SUCCESS.getMessage());
         responseResult.setData(data);
 
@@ -55,6 +54,11 @@ public class ResponseResult<T> implements Serializable {
 
     @SuppressWarnings("rawtypes")
     public ResponseResult code(String code) {
+        this.setCode(code);
+        return this;
+    }
+
+    public ResponseResult errCode(String code) {
         this.setErrCode(code);
         return this;
     }
@@ -99,6 +103,15 @@ public class ResponseResult<T> implements Serializable {
 
     public ResponseResult<T> setData(T data) {
         this.data = data;
+        return this;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public ResponseResult<T> setCode(String code) {
+        this.code = code;
         return this;
     }
 }
