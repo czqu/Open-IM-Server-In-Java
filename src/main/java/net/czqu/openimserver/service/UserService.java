@@ -9,6 +9,7 @@ import net.czqu.openimserver.dto.user.AccountStatusDTO;
 import net.czqu.openimserver.dto.user.UserInfoDTO;
 import net.czqu.openimserver.error.constant.ErrorCode;
 import net.czqu.openimserver.error.exception.UserException;
+import org.apache.catalina.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,10 @@ public class UserService {
         this.usersMapper = usersMapper;
     }
 
-    public List<AccountStatusDTO> checkAccountStatus(AccountCheckListDTO accountCheckListDTO) {
+    public List<AccountStatusDTO> checkAccountStatus(AccountCheckListDTO accountCheckListDTO) throws UserException {
         if (Objects.isNull(accountCheckListDTO)) {
             //// TODO: 2023/1/16
-            return null;
+            throw new UserException("accountList is invalid!", ErrorCode.USER_PARAM_ERR);
         }
 
         if (CollectionUtils.isEmpty(accountCheckListDTO.getCheckUserIDList())) {
@@ -88,10 +89,10 @@ public class UserService {
         return convertToUserInfoDTO(user);
     }
 
-    public Void setUserInfo(String)
-    {
-
-    }
+//    public Void setUserInfo(String)
+//    {
+//
+//    }
 
 
 

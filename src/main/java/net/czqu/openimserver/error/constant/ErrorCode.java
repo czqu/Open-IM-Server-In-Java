@@ -17,6 +17,7 @@ public enum ErrorCode implements IBaseErrorCode {
     // user
     USER_NOT_FOUND(OpenIMModule.USER, ExceptionLevelEnum.ERROR, "00", "user not found", "404"),
     USER_ID_INVALID(OpenIMModule.USER, ExceptionLevelEnum.ERROR, "01", "user id invalid", "404"),
+    USER_PARAM_ERR(OpenIMModule.USER, ExceptionLevelEnum.ERROR, "02", "", "404"),
     ;
     private OpenIMModule module;
     private ExceptionLevelEnum level;
