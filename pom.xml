@@ -121,6 +121,30 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <configLocation>${basedir}/src/main/resources/rulesets/maven_checks.xml</configLocation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <includeTestSourceDirectory>false</includeTestSourceDirectory>
+                            <encoding>UTF-8</encoding>
+                            <violationSeverity>warning</violationSeverity>
+                            <consoleOutput>true</consoleOutput>
+                            <failOnViolation>true</failOnViolation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
