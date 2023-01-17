@@ -120,27 +120,27 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.13</version>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <tag>${project.version}</tag>
-                    <repository>registry.cn-shanghai.aliyuncs.com/czqu/open-im-server</repository>
-                    <dockerfile>${basedir}/docker/Dockerfile</dockerfile>
-                    <buildArgs>
-                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--                <version>1.4.13</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>default</id>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <tag>${project.version}</tag>-->
+<!--                    <repository>registry.cn-shanghai.aliyuncs.com/czqu/open-im-server</repository>-->
+<!--                    <dockerfile>${basedir}/docker/Dockerfile</dockerfile>-->
+<!--                    <buildArgs>-->
+<!--                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>-->
+<!--                    </buildArgs>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -163,7 +163,33 @@
                     </dependency>
                 </dependencies>
             </plugin>
-        </plugins>
+        <!-- findbugs插件 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
+                <configuration>
+                    <!-- 设置分析工作的等级，可以为Min、Default和Max -->
+                    <effort>Low</effort>
+                    <!-- Low、Medium和High (Low最严格) High只扫描严重错误。-->
+                    <threshold>Low</threshold>
+                    <failOnError>true</failOnError>
+                    <includeTests>true</includeTests>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-findbugs</id>
+                        <!-- 在package(也可设为compile) 阶段触发执行findbugs检查，比如执行 mvn clean package -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+</plugins>
     </build>
 
 </project>
