@@ -1,8 +1,5 @@
 package net.czqu.openimserver.error.exception;
 
-import net.czqu.openimserver.error.constant.ExceptionLevelEnum;
-import net.czqu.openimserver.error.constant.OpenIMModule;
-
 /**
  * @program: Open-IM-Server-In-Java
  * @description:

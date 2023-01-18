@@ -7,8 +7,17 @@ package net.czqu.openimserver.error.constant;
  * @create: 2023-01-16 20:54
  **/
 public enum ExceptionLevelEnum {
+    /**
+     * 信息
+     */
     INFO(0, "info"),
+    /**
+     * 警告
+     */
     WARN(1, "warn"),
+    /**
+     * 错误
+     */
     ERROR(2, "error");
 
     ExceptionLevelEnum(int id, String value) {
@@ -26,32 +35,15 @@ public enum ExceptionLevelEnum {
         return id;
     }
 
-    public ExceptionLevelEnum setId(int id) {
-        this.id = id;
-        return this;
-    }
-
-    public java.lang.String getValue() {
+    public String getValue() {
         return value;
     }
 
-    public ExceptionLevelEnum setValue(java.lang.String value) {
-        this.value = value;
-        return this;
-    }
-
-    public java.lang.String getDescription() {
+    public String getDescription() {
         return description;
     }
-
-    public ExceptionLevelEnum setDescription(java.lang.String description) {
-        this.description = description;
-        return this;
-    }
-
 
     private int id;
     private String value;
     private String description;
 }
-

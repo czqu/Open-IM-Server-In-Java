@@ -5,7 +5,11 @@ package net.czqu.openimserver.error.constant;
  */
 
 public enum OpenIMModule {
+    /**
+     * 用户模块
+     */
     USER("user", "10");
+
     private String value;
     private String code;
 
@@ -18,17 +22,8 @@ public enum OpenIMModule {
         return value;
     }
 
-    public OpenIMModule setValue(String value) {
-        this.value = value;
-        return this;
-    }
-
     public String getCode() {
         return code;
     }
 
-    public OpenIMModule setCode(String code) {
-        this.code = code;
-        return this;
-    }
 }

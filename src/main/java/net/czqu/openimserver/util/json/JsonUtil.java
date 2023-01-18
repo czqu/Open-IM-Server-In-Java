@@ -1,12 +1,12 @@
 package net.czqu.openimserver.util.json;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
-
-
 
 /**
  * @program: Open-IM-Server-In-Java
@@ -27,8 +25,7 @@ public class JsonUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtil.class);
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public JsonUtil() {
-    }
+    public JsonUtil() {}
 
     public static String toJsonString(Object o) {
         try {
@@ -92,7 +89,8 @@ public class JsonUtil {
 
     public static <T> List<T> parseArray(String body, Class<T> clazz) {
         try {
-            return (List)objectMapper.readValue(body, objectMapper.getTypeFactory().constructParametricType(List.class, new Class[]{clazz}));
+            return (List)objectMapper.readValue(body,
+                objectMapper.getTypeFactory().constructParametricType(List.class, new Class[] {clazz}));
         } catch (JsonProcessingException var3) {
             LOGGER.warn("序列化发生错误", var3);
             throw getThrowException();
@@ -117,7 +115,7 @@ public class JsonUtil {
     }
 
     static {
-// 忽略null打印日志
+        // 忽略null打印日志
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);

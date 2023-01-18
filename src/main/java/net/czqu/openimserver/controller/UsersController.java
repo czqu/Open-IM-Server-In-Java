@@ -5,7 +5,6 @@ import net.czqu.openimserver.error.exception.UserException;
 import net.czqu.openimserver.service.UserService;
 
 import net.czqu.openimserver.util.response.ResponseResult;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

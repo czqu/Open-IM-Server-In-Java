@@ -1,5 +1,6 @@
 package net.czqu.openimserver.controller;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,8 @@ import java.net.UnknownHostException;
  */
 @Api(tags = "测试接口")
 @RestController
+@SuppressWarnings("PMD")
+@SuppressFBWarnings
 class TestController {
 
     @GetMapping("/test")
