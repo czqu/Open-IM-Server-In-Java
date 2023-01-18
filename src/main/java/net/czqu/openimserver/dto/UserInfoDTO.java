@@ -1,5 +1,6 @@
 package net.czqu.openimserver.dto;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import java.util.Date;
  * @author: czq
  * @create: 2023-01-08 14:27
  **/
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class UserInfoDTO {
     private String userId;
     private String name;
@@ -59,5 +61,11 @@ public class UserInfoDTO {
     public UserInfoDTO setBirth(Date birth) {
         this.birth = birth;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfoDTO{" + "userId='" + userId + '\'' + ", name='" + name + '\'' + ", phone='" + phone + '\''
+            + ", email='" + email + '\'' + ", birth=" + birth + '}';
     }
 }

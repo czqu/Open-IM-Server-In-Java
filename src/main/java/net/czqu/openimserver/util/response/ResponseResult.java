@@ -2,16 +2,15 @@ package net.czqu.openimserver.util.response;
 
 import java.io.Serializable;
 
-
 /**
  * @author czqu
  */
 public class ResponseResult<T> implements Serializable {
+    private static final long serialVersionUID = 9091608525873740724L;
     private String errCode = "";
     private String errMsg = "";
     private String code = "";
     private T data;
-
 
     private ResponseResult() {
     }
@@ -69,14 +68,9 @@ public class ResponseResult<T> implements Serializable {
         return this;
     }
 
-
     @Override
     public String toString() {
-        return "RestResult{" +
-                "code=" + errCode +
-                ", msg='" + errMsg + '\'' +
-                ", data=" + data +
-                '}';
+        return "RestResult{" + "code=" + errCode + ", msg='" + errMsg + '\'' + ", data=" + data + '}';
     }
 
     public String getErrCode() {
