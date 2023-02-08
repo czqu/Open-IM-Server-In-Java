@@ -8,6 +8,8 @@ import java.util.List;
  * @author: chatelier
  * @create: 2023/1/16 19:43
  */
+
+@SuppressWarnings("PMD")
 public class AccountCheckListDTO {
     private List<String> checkUserIDList;
     private String operationID;

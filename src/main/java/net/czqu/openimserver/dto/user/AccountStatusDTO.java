@@ -6,8 +6,10 @@ package net.czqu.openimserver.dto.user;
  * @author: chatelier
  * @create: 2023/1/16 19:53
  */
+@SuppressWarnings("PMD")
 public class AccountStatusDTO {
     private String accountStatus;
+
     private String userID;
 
     public AccountStatusDTO(String accountStatus, String userID) {

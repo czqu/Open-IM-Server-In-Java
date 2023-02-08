@@ -4,9 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import net.czqu.openimserver.dto.user.AccountCheckListDTO;
-import net.czqu.openimserver.dto.user.AccountStatusDTO;
-import net.czqu.openimserver.dto.user.UserInfoDTO;
+import net.czqu.openimserver.dao.pojo.Users;
+import net.czqu.openimserver.dto.user.*;
 import net.czqu.openimserver.service.UserService;
 import net.czqu.openimserver.error.exception.UserException;
 
@@ -33,15 +32,37 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public ResponseResult<UserInfoDTO> getUserInfo(@RequestParam(value = "id") @Parameter(description= "EEEE")String userId) throws UserException {
-        return ResponseResult.success(userService.getUserInfo(userId));
+    @PostMapping ("/account_check")
+    public ResponseResult<List<AccountStatusDTO>> checkAccountStatus(@RequestBody AccountCheckListDTO body)
+            throws UserException {
+        return ResponseResult.success(userService.checkAccountStatus(body));
+    }
+
+    @PostMapping("/get_all_users_uid")
+    public ResponseResult<List<String>> getAllUsersUid(@RequestParam(value = "operationId")
+                                                           @Parameter()String operationId) throws  UserException {
+        return ResponseResult.success(userService.getAllUsersUid());
+    }
+    @PostMapping("/get_self_users_info")
+    public ResponseResult<UserInfoDTO> getSelfUserInfo(
+            @RequestParam(value = "id") @Parameter(description= "EEEE")String userId) throws UserException {
+        return ResponseResult.success(userService.getSelfUserInfo(userId));
     }
     @Operation(summary = "CCCCCC")
 
-    @PostMapping ("/account_check")
-    public ResponseResult<List<AccountStatusDTO>> checkAccountStatus(@RequestBody AccountCheckListDTO body) throws UserException {
-        return ResponseResult.success(userService.checkAccountStatus(body));
+    @PostMapping ("/get_users_info")
+    public ResponseResult<List<Users>> getUsersInfo(@RequestBody UserIdListDTO body) throws UserException {
+        return ResponseResult.success(userService.getUserInfo(body));
+    }
+
+    @PostMapping("/get_users_online_status")
+    public ResponseResult<List<OnlineStatusDTO>> getUsersOnlineStatus(@RequestBody UserIdListDTO body)
+            throws UserException {
+        return ResponseResult.success(userService.getUsersOnlineStatus(body));
+    }
+    @PostMapping("/update_user_info")
+    public ResponseResult<Integer> updateUserInfo(@RequestBody UserInfoDTO body) throws UserException {
+        return ResponseResult.success(userService.updateUserInfo(body));
     }
 
 }

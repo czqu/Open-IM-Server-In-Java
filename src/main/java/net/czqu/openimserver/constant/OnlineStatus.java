@@ -4,16 +4,16 @@ package net.czqu.openimserver.constant;
  * @program: Open-IM-Server-In-Java
  * @description:
  * @author: chatelier
- * @create: 2023/1/16 20:12
+ * @create: 2023/2/6 22:49
  */
-public enum UserStatus {
-    //   "1", "注册"
-    //   “2", "未注册"
-    REGISTERED(1,"registered"),UNREGISTERED(2,"unregistered");
+public enum OnlineStatus {
+    //   "1", "在线"
+    //   “2", "离线"
+    ONLINE_STATUS(1,"online"), OFFLINE_STATUS(2,"offline");
     private int id;
     private String value;
 
-    UserStatus(int id, String value) {
+    OnlineStatus(int id, String value) {
         this.id = id;
         this.value = value;
     }
