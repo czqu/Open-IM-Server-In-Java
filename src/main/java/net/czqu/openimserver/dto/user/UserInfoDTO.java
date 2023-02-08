@@ -1,6 +1,9 @@
 package net.czqu.openimserver.dto.user;
 
 
+import net.czqu.openimserver.constant.Gender;
+import net.czqu.openimserver.constant.GlobalRecvMsg;
+
 import java.util.Date;
 
 /**
@@ -12,9 +15,16 @@ import java.util.Date;
 public class UserInfoDTO {
     private String userId;
     private String name;
-    private String phone;
-    private String email;
+    private String faceUrl;
+    private Gender gender;
+    private String phoneNumber;
     private Date birth;
+    private String email;
+    private String ex;
+    private String nickname;
+    private Date createTime;
+
+    private GlobalRecvMsg globalRecvMsg;
 
     public String getUserId() {
         return userId;
@@ -34,15 +44,6 @@ public class UserInfoDTO {
         return this;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public UserInfoDTO setPhone(String phone) {
-        this.phone = phone;
-        return this;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -58,6 +59,67 @@ public class UserInfoDTO {
 
     public UserInfoDTO setBirth(Date birth) {
         this.birth = birth;
+        return this;
+    }
+    public String getFaceUrl() {
+        return faceUrl;
+    }
+
+    public UserInfoDTO setFaceUrl(String faceUrl) {
+        this.faceUrl = faceUrl;
+        return this;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public UserInfoDTO setGender(Gender gender) {
+        this.gender = gender;
+        return this;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public UserInfoDTO setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public String getEx() {
+        return ex;
+    }
+    public UserInfoDTO setEx(String ex) {
+        this.ex = ex;
+        return this;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public UserInfoDTO setCreateTime(Date createTime) {
+        this.createTime = createTime;
+        return this;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public UserInfoDTO setNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
+    public GlobalRecvMsg getGlobalRecvMsg() {
+        return globalRecvMsg;
+    }
+
+    public UserInfoDTO setGlobalRecvMsg(GlobalRecvMsg globalRecvMsg) {
+        this.globalRecvMsg = globalRecvMsg;
         return this;
     }
 }

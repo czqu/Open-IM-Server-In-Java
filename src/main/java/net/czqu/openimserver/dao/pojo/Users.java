@@ -7,7 +7,7 @@ import java.util.Date;
 public class Users implements Cloneable {
     private String userId;
 
-    private String name;
+    private String nickname;
 
     private String faceUrl;
 
@@ -35,12 +35,12 @@ public class Users implements Cloneable {
         this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 
     public String getFaceUrl() {
@@ -136,8 +136,8 @@ public class Users implements Cloneable {
             return this;
         }
 
-        public Builder name(String name) {
-            obj.setName(name);
+        public Builder nickname(String nickname) {
+            obj.setNickname(nickname);
             return this;
         }
 
@@ -193,7 +193,7 @@ public class Users implements Cloneable {
 
     public enum Column {
         userId("user_id", "userId", "VARCHAR", false),
-        name("name", "name", "VARCHAR", false),
+        nickname("nickname", "nickname", "VARCHAR", false),
         faceUrl("face_url", "faceUrl", "VARCHAR", false),
         gender("gender", "gender", "INTEGER", false),
         phoneNumber("phone_number", "phoneNumber", "VARCHAR", false),
