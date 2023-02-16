@@ -1,0 +1,128 @@
+# The file is used by tests of servers
+
+services:
+  # MongoDB
+  mongodb-router:
+    image: "bitnami/mongodb-sharded:6.0.3"
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-router
+      - MONGODB_SHARDING_MODE=mongos
+      - MONGODB_CFG_PRIMARY_HOST=mongodb-config
+      - MONGODB_CFG_REPLICA_SET_NAME=cfgreplicaset
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+      - MONGODB_ROOT_PASSWORD=turms
+    healthcheck:
+      # Use "mongo -u root -p turms --port 27017 --eval='sh.status()' | grep mongodb-shard | grep -q '\"state\" : 1'" before v5.0
+      test: "mongosh -u root -p turms --port 27017 --eval='sh.status()' | sed -n '/shards/,/---/p' | grep -q 'state: 1'"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb-shard:
+    image: "bitnami/mongodb-sharded:6.0.3"
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-shard
+      - MONGODB_SHARDING_MODE=shardsvr
+      - MONGODB_MONGOS_HOST=mongodb-router
+      - MONGODB_ROOT_PASSWORD=turms
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+      - MONGODB_REPLICA_SET_NAME=shard01
+
+  mongodb-config:
+    image: "bitnami/mongodb-sharded:6.0.3"
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-config
+      - MONGODB_SHARDING_MODE=configsvr
+      - MONGODB_ROOT_PASSWORD=turms
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+      - MONGODB_REPLICA_SET_NAME=cfgreplicaset
+
+  # Redis
+  redis:
+    image: redis:7.0.7-alpine
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # turms servers
+  turms-admin:
+    image: "ghcr.io/turms-im/turms-admin"
+
+  turms-gateway:
+    image: "ghcr.io/turms-im/turms-gateway"
+    depends_on:
+      mongodb-router:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      turms-service:
+        condition: service_healthy
+    environment:
+      TURMS_GATEWAY_JVM_OPTS: >
+        -Dspring.profiles.active=test
+
+        -Dturms.cluster.connection.server.port=7610
+        -Dturms.cluster.connection.server.port-auto-increment=false
+
+        -Dturms.cluster.discovery.address.advertise-strategy=advertise_address
+        -Dturms.cluster.discovery.address.advertise-host=turms-gateway
+
+        -Dturms.cluster.shared-config.mongo.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+        -Dturms.gateway.mongo.admin.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+        -Dturms.gateway.mongo.user.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+
+        -Dturms.gateway.redis.session.uri-list[0]=redis://redis:6379
+        -Dturms.gateway.redis.location.uri-list[0]=redis://redis:6379
+        -Dturms.gateway.redis.ip-blocklist.uri=redis://redis:6379
+        -Dturms.gateway.redis.user-id-blocklist.uri=redis://redis:6379
+    healthcheck:
+      test: "curl --fail --silent --user turms:turms turms-gateway:9510/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ulimits:
+      nofile:
+        soft: 1024000
+        hard: 1024000
+
+  turms-service:
+    image: "ghcr.io/turms-im/turms-service"
+    depends_on:
+      mongodb-router:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      TURMS_SERVICE_JVM_OPTS: >
+        -Dspring.profiles.active=test
+
+        -Dturms.cluster.connection.server.port-auto-increment=false
+
+        -Dturms.cluster.discovery.address.advertise-strategy=advertise_address
+        -Dturms.cluster.discovery.address.advertise-host=turms
+
+        -Dturms.cluster.shared-config.mongo.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+        -Dturms.service.mongo.admin.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+        -Dturms.service.mongo.user.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+        -Dturms.service.mongo.group.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+        -Dturms.service.mongo.conversation.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+        -Dturms.service.mongo.message.uri=mongodb://root:turms@mongodb-router:27017/turms-standalone?authSource=admin
+
+        -Dturms.service.redis.sequence-id.uri-list[0]=redis://redis:6379
+        -Dturms.service.redis.session.uri-list[0]=redis://redis:6379
+        -Dturms.service.redis.location.uri-list[0]=redis://redis:6379
+        -Dturms.service.redis.ip-blocklist.uri=redis://redis:6379
+        -Dturms.service.redis.user-id-blocklist.uri=redis://redis:6379
+    healthcheck:
+      test: "curl --fail --silent --user turms:turms turms-service:8510/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
